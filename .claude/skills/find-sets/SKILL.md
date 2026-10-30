@@ -1,0 +1,17 @@
+---
+name: find-sets
+description: Finds new women and new cozy Christmas rooms for the videos (Pinterest search, no account needed), checks them and keeps only the good ones in library/characters and library/rooms. Run when next-set says the pool is empty, or when the creator asks for new people/rooms.
+---
+1. `python3 engine/pinterest.py characters` and `python3 engine/pinterest.py rooms` (each takes 1–3 minutes). For something specific use `python3 engine/pinterest.py search "<words>" characters|rooms 30`.
+2. Make a contact sheet of the candidates so you can see them: `python3 -c "from PIL import Image;import glob;fs=sorted(glob.glob('library/candidates/<kind>/*.jpg'));ims=[Image.open(f).convert('RGB') for f in fs];[i.thumbnail((240,360)) for i in ims];s=Image.new('RGB',(240*8,370*((len(ims)+7)//8)),'white');[s.paste(i,((k%8)*240,(k//8)*370)) for k,i in enumerate(ims)];s.save('library/candidates/<kind>-sheet.jpg')"` and Read it (file order = left to right, top to bottom).
+3. Keep only photos that pass ALL of these (rule 28 Oct, Alex: "always TOP rooms and natural full-HD characters, like the room in instagram.com/p/De-wL1DSEhY — a real modern apartment filmed naturally, sharp"):
+   - **REAL, never AI (first criterion, Alex 28 Oct)**: a real phone photo of a real home (ceiling fan, TV, real clutter, normal light) like room-14…26; anything too perfect, glowing, symmetrical or staged = AI → delete.
+   - **Sharp, ideally full HD**: the SHORT side ideally ≥ 1080 px, at least 720 px (`python3 -c "from PIL import Image;print(min(Image.open('<f>').size))"`). Under 720 = delete. Sharp, not blurry, not over-compressed.
+   - **Natural**: a real photo as if taken on a good phone — real light, real textures, real imperfections. Never AI renders, never glossy catalogue/staged showroom looks, never heavy filters.
+   - **Woman**: ONE woman (adult, 20–40, natural, not a model shoot), face big, clear, NOT covered by a phone or a cup, eyes open, real photo (not AI-looking), good light, no text/watermark. Vary hair colours between sets.
+   - **Room**: a TOP room (the approved style: a real American family home photographed on a phone, lived-in, not a designer/AI render), real home (a Christmas tree is welcome but NOT required), BRIGHT daylight (not dark/night), floor visible with free space for a person standing full body, a sofa or a bed visible, no people, no text/watermark/logo, not AI-looking.
+   Move the good ones with `mv` to `library/characters/` or `library/rooms/` (new names like `character-07.jpg`, `room-10.jpg`). Delete the rest: `rm -r library/candidates`.
+4. If Pinterest is blocked or fewer than 5 good ones of each come out, tell the creator exactly: "Please put about 20 high-quality photos of women (clear face, real photo, bright) in library/characters and 20 photos of bright real living rooms (sofa or bed, floor visible) in library/rooms. Pinterest is perfect for this — save the biggest version of each photo."
+
+
+Search tips (28 Oct): never use the word "girl" in a Pinterest query (logged-out searches with it return nothing) — use "woman", "selfie", "brunette", "blonde". Women can be in ANY setting (not only Christmas): one woman, face clear and facing the camera, real phone photo, short side ≥ 1080. Rooms: a Christmas tree is NOT required; the target look is a real modern American apartment / family living room like PrincessComfort's (open kitchen, wood floor, soft rug, neutral tones, very clear), short side ≥ 1080, never AI (~80% of Pinterest results are AI or showrooms: be strict).

@@ -1,0 +1,315 @@
+<title>Robe Studio Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a reading column with a sticky section index on wide screens; an edit strip like a video timeline; cards only for examples */
+:root{
+  --bg:#f6f5fb; --surface:#ffffff; --ink:#1b1f3b; --muted:#5d6181; --line:#dcdcec;
+  --royal:#2a3a9e; --belt:#c8283c; --gold:#e9b50f; --sherpa:#eceaf6; --ok:#1f7a4d;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11132a; --surface:#1a1d3a; --ink:#ecebf7; --muted:#a4a7c6; --line:#2e3260;
+  --royal:#8fa0ff; --belt:#ff6b7c; --gold:#f5c93a; --sherpa:#24284a; --ok:#5fd39a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11132a; --surface:#1a1d3a; --ink:#ecebf7; --muted:#a4a7c6; --line:#2e3260;
+  --royal:#8fa0ff; --belt:#ff6b7c; --gold:#f5c93a; --sherpa:#24284a; --ok:#5fd39a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 72px}
+.layout{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;padding-top:56px;font-size:.88rem}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:3px 0}
+.toc a:hover,.toc a:focus-visible{color:var(--royal)}
+main{min-width:0;max-width:760px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(1.55rem,3.6vw,2.1rem);font-weight:700;margin-bottom:.5rem}
+h3{font-size:1.12rem;font-weight:700;margin:1.4rem 0 .3rem}
+p{margin:.45rem 0;max-width:68ch}
+ul,ol{padding-left:1.2rem;margin:.4rem 0}
+li{margin:.3rem 0}
+code{font:500 .86em var(--mono);background:var(--sherpa);padding:1px 6px;border-radius:4px}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--belt);margin-bottom:.6rem}
+section{padding-block:44px 8px;border-top:1px solid var(--line);scroll-margin-top:16px}
+header{padding-block:56px 32px}
+header h1{font-size:clamp(2.3rem,7vw,3.9rem);font-weight:800;letter-spacing:-.02em}
+header h1 span{color:var(--royal)}
+.lede{font-size:1.15rem;color:var(--muted);margin-top:.9rem}
+.promise{margin-top:22px;background:var(--surface);border:2px solid var(--ok);border-radius:12px;padding:16px 18px}
+.promise b{color:var(--ok)}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:18px;font:500 .9rem var(--mono);color:var(--muted)}
+.facts b{color:var(--ink);font-weight:500}
+/* glossary */
+dl.gloss{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:10px 20px;margin-top:14px}
+dl.gloss dt{font-weight:600}
+dl.gloss dd{margin:0;color:var(--ink)}
+@media (max-width:520px){dl.gloss{grid-template-columns:1fr;gap:2px}dl.gloss dd{margin-bottom:10px}}
+/* edit strip */
+.strip{display:flex;gap:4px;overflow-x:auto;padding:6px 0 10px;margin-top:14px}
+.clip{flex:1 0 108px;min-width:0;border-radius:6px;padding:10px 10px 12px;color:#fff;background:var(--royal)}
+.clip:nth-child(1){background:#c8283c}.clip:nth-child(2){background:#2a3a9e}.clip:nth-child(3){background:#3d52c4}
+.clip:nth-child(4),.clip:nth-child(5){background:#7a5fc9}.clip:nth-child(6){background:#b8860b}
+.clip small{display:block;font:500 .7rem var(--mono);opacity:.85}
+.clip strong{display:block;font:700 .95rem var(--display);margin-top:2px}
+.parts{display:grid;gap:10px;margin-top:10px}
+.part{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px}
+.part b{font-family:var(--display)}
+@media (max-width:520px){.part{grid-template-columns:1fr;gap:0}}
+/* ask cards */
+.asks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin-top:14px}
+.ask{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.ask h3{margin:0 0 .3rem;font-size:1.02rem}
+.ask q{display:block;font-style:italic;color:var(--royal);margin:.3rem 0 .4rem;quotes:"“" "”"}
+.ask p{margin:.2rem 0;font-size:.95rem;color:var(--muted)}
+/* steps */
+ol.flow{list-style:none;counter-reset:f;padding:0;margin:14px 0 0;display:grid;gap:12px}
+ol.flow>li{counter-increment:f;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;margin:0}
+ol.flow>li::before{content:counter(f);font:800 1.05rem/34px var(--display);text-align:center;width:34px;height:34px;border-radius:50%;background:var(--royal);color:#fff}
+ol.flow b{display:block}
+.note{background:var(--sherpa);border-left:4px solid var(--gold);padding:12px 14px;border-radius:0 8px 8px 0;margin:14px 0}
+.can{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:12px}
+.can div{min-width:0}
+.can h3{margin-top:0}
+.can .yes h3{color:var(--ok)}.can .hard h3{color:var(--belt)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.95rem}
+th{text-align:left;font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--ink);padding:6px 10px 6px 0}
+td{border-bottom:1px solid var(--line);padding:8px 10px 8px 0;vertical-align:top}
+.tablewrap{overflow-x:auto}
+footer{margin-top:44px;font:500 .8rem var(--mono);color:var(--muted)}
+a{color:var(--royal)}
+</style>
+
+<div class="layout">
+<nav class="toc" aria-label="Sections">
+  <a href="#start">Start here</a>
+  <a href="#words">The words you'll see</a>
+  <a href="#video">What a video looks like</a>
+  <a href="#ask">Everything you can ask</a>
+  <a href="#hooks">How a reel is copied</a>
+  <a href="#audio">Voices and music</a>
+  <a href="#people">People and rooms</a>
+  <a href="#product">The product part</a>
+  <a href="#checks">How mistakes are caught</a>
+  <a href="#variety">Staying fresh</a>
+  <a href="#limits">How far it can go</a>
+  <a href="#you">Your part</a>
+  <a href="#help">If something goes wrong</a>
+</nav>
+
+<main>
+<header id="start">
+  <div class="eyebrow">Robe Studio · the complete guide</div>
+  <h1>One reel in, a finished <span>robe video</span> out.</h1>
+  <p class="lede">Robe Studio makes ready-to-post TikTok and Reels videos for our heated hooded robes. You send it a reel that is working for someone else, or an idea of your own. It rebuilds the video with our robe, a new person and a new room, checks every frame, edits it with music, and hands you the MP4 plus the exact text to add in CapCut.</p>
+  <div class="promise"><b>You never edit anything.</b> No video editor, no files, no code, no settings. You talk to Claude in normal sentences, like texting a friend who edits videos for you. If you want something different, you just say it.</div>
+  <div class="facts"><span><b>~20 min</b> per video</span><span><b>1080×1920</b> · 9:16</span><span><b>2 robes</b> · Snoopy, Princess</span><span>runs in your <b>browser</b></span></div>
+</header>
+
+<section id="words">
+  <div class="eyebrow">For complete beginners</div>
+  <h2>The words you'll see</h2>
+  <p>You don't need to understand how any of this works. These are only so the names don't confuse you.</p>
+  <dl class="gloss">
+    <dt>Claude</dt><dd>The AI assistant you chat with. It does all the work.</dd>
+    <dt>Claude Code (web)</dt><dd>The chat at <code>claude.ai/code</code> where Claude can work with your Robe Studio folder. That's where you talk to it.</dd>
+    <dt>GitHub</dt><dd>A free website that keeps your own online folder with the kit and your finished videos. You set it up once and never open the files.</dd>
+    <dt>Higgsfield</dt><dd>The website that creates the images and videos. Claude uses your Higgsfield account for that.</dd>
+    <dt>Reel</dt><dd>A short vertical video on Instagram or TikTok. The ones you send are the "references": videos that already get views.</dd>
+    <dt>Hook</dt><dd>The first 3–7 seconds of a video. It decides if people keep watching.</dd>
+    <dt>B-roll</dt><dd>The part where the person puts the robe on and shows it off.</dd>
+    <dt>Cozy ending</dt><dd>The last shot: the person relaxing in the robe.</dd>
+    <dt>Start frame</dt><dd>A photo Claude creates first, then brings to life as a video. Used for your own hook ideas.</dd>
+  </dl>
+</section>
+
+<section id="video">
+  <div class="eyebrow">The finished product</div>
+  <h2>What a video looks like</h2>
+  <p>Every video follows the same proven order. The order never changes, which keeps things simple and reliable.</p>
+  <div class="strip" role="list">
+    <div class="clip" role="listitem"><small>3–7 s</small><strong>Hook</strong></div>
+    <div class="clip" role="listitem"><small>~1.5 s</small><strong>Robe on</strong></div>
+    <div class="clip" role="listitem"><small>~2 s</small><strong>Foot pockets</strong></div>
+    <div class="clip" role="listitem"><small>~1.6 s</small><strong>Connector</strong></div>
+    <div class="clip" role="listitem"><small>~2 s</small><strong>Remote</strong></div>
+    <div class="clip" role="listitem"><small>~2.5 s</small><strong>Cozy</strong></div>
+  </div>
+  <div class="parts">
+    <div class="part"><b>Hook</b><span>The copy of the reel you sent, or your own idea. This is what stops people scrolling.</span></div>
+    <div class="part"><b>Robe on</b><span>A new person in a new room puts the robe on, seen from the back and then the front.</span></div>
+    <div class="part"><b>Foot pockets</b><span>She opens the robe and steps into the foot pockets, one foot at a time, from the outside in.</span></div>
+    <div class="part"><b>Connector</b><span>A sharp 4K close-up next to the Christmas tree: the heating cable clicks fully in. These clips are ready-made and reused in rotation, so they never cost anything and never go wrong.</span></div>
+    <div class="part"><b>Remote</b><span>A 4K close-up by the tree: the remote's lights go up one by one, it heats. Also ready-made, reused in rotation.</span></div>
+    <div class="part"><b>Cozy</b><span>She relaxes in the robe. The classic version, or any ending you choose.</span></div>
+  </div>
+  <p>With it you get: music (Christmas songs), a caption with hashtags to copy, and the <b>suggested on-screen text</b>. The video comes <b>without text on purpose</b>: you add the text yourself in CapCut (top of the screen, the whole video), so it looks like a real person's post. Claude tells you the exact words, emojis and line breaks under the video and in <code>text.txt</code>.</p>
+</section>
+
+<section id="ask">
+  <div class="eyebrow">No commands</div>
+  <h2>Everything you can ask</h2>
+  <p>Write in your own words. These are examples, not commands to memorize.</p>
+  <div class="asks">
+    <div class="ask"><h3>Remake a reel that works</h3><q>Make this one with the princess robe: &lt;Instagram or TikTok link&gt;</q><p>The main way to make videos. Pick reels with a strong first 3 seconds.</p></div>
+    <div class="ask"><h3>Your own hook idea</h3><q>I have an idea: she opens the front door and her mom holds a giant gift box</q><p>Claude makes the first frame, shows it to you, you say OK and how it should move.</p></div>
+    <div class="ask"><h3>Choose the cozy ending</h3><q>Cozy: reading a book on the bed</q><p>Claude asks before every video. Classic, or anything you imagine.</p></div>
+    <div class="ask"><h3>Use a specific song</h3><q>Use this song</q><p>Drag an MP3 into the chat first. Claude puts the best part on the big moment.</p></div>
+    <div class="ask"><h3>Change something</h3><q>Use another song · The hood looks wrong at the end · Another cozy ending</q><p>Only that part is redone, then the video is edited again.</p></div>
+    <div class="ask"><h3>New rooms or faces</h3><q>Here are the new rooms from Alex · I want new girls</q><p>Rooms come from the zips Alex sends you: drag the zip into the chat and Claude adds them. New girls: Claude searches Pinterest and keeps only real-looking photos.</p></div>
+    <div class="ask"><h3>Ask for ideas</h3><q>Give me 3 hook ideas for the Snoopy robe</q><p>Claude suggests hooks that are proven to work and haven't been used on your account yet.</p></div>
+    <div class="ask"><h3>Check what's left</h3><q>How many videos can I still make?</q><p>Claude checks your Higgsfield account and answers roughly.</p></div>
+    <div class="ask"><h3>Install an update</h3><q>Here is the new update from Alex</q><p>Drag Alex's update file into the chat first. Your videos and history stay.</p></div>
+  </div>
+</section>
+
+<section id="hooks">
+  <div class="eyebrow">Deep dive · hooks</div>
+  <h2>How a reel is copied</h2>
+  <p>When you send a link, Claude doesn't just "get inspired". It rebuilds the reel's hook so it moves and sounds like the original, but with our robe and different people.</p>
+  <ol class="flow">
+    <li><div><b>Downloads the reel and studies it frame by frame.</b>It writes down every action with its second and speed, for example "0–2.7 s she sways the rolled robe slowly; at 2.8 s she lets it unroll".</div></li>
+    <li><div><b>Makes a list of every object and its job.</b>Before anything is generated, Claude writes down each object in their hook and what it is for. Their <i>product</i> becomes our robe, and it must clearly look like a robe (hood with the face, sleeves, full length), never a cape or a blanket. Their <i>packaging</i> becomes our box with our brand printed in the same spot (for example HEATGRUMP where their box says PRINCESSCOMFORT). A <i>decoration</i> themed like their product stays the same kind of object with our character on it: an Elsa blanket becomes a Grinch or Snoopy blanket, a Disney Princess pillow becomes a Grinch or Snoopy pillow. Plain things (a white blanket, a table, a shopping cart) and the place stay exactly as they are. Anything that belongs only to their product (a projector, a light) is removed. For every changed object Claude first makes a picture of it, checks it, and gives that picture to the video tool.</div></li>
+    <li><div><b>Removes their caption, cleanly.</b>The text they put on top of their video is removed using a clean photo of the same spot, never with blur (blur would show up as a smudge in our video).</div></li>
+    <li><div><b>Keeps their place as it is.</b>Store signs and logos in the scene stay exactly as in the original. Only the people and the product change.</div></li>
+    <li><div><b>Changes the people.</b>Our person replaces theirs, and anyone else in the shot gets a clearly different face, so it is a remake, never a copy.</div></li>
+    <li><div><b>Generates the new hook from their real footage.</b>The motion, speed and seconds stay identical: if their robe falls slowly at 2.8 s, ours does too. Their clip is cut to whole seconds before it goes in (the video tool only makes whole seconds, and stretches anything else), and the second-by-second timeline goes into the instructions.</div></li>
+    <li><div><b>Put on the original's exact seconds.</b>After generating, every cut of our hook is moved onto the second of the matching cut in theirs, and the hook ends exactly where theirs ends. Same length, same actions, same moments.</div></li>
+    <li><div><b>Compares ours with theirs, side by side.</b>Ten pictures per second, one row each. Anything faster, slower or different is regenerated.</div></li>
+  </ol>
+  <div class="note"><b>On-screen text:</b> Claude suggests the reference's original text, word for word, with the same emojis. It worked for them; we keep it. You type it in CapCut at the top of the screen.</div>
+  <div class="note"><b>Tip: start frame first looks more pro.</b> For many hooks it is better to first make one realistic photo of the first moment (our person, our room, our robe or box), look at it, fix it until you like it, and only then animate it. Say <q>start frame first</q> when you send a reel. It takes a few minutes more, but the result looks much more professional, because you approve the picture before any video is made.</div>
+  <h3>Your own hooks</h3>
+  <p>When you describe an idea, Claude creates a realistic photo of the first moment with our person in her room, and shows it to you. You say OK or what to change, then how it should move and whether someone says something. Claude animates it, checks it and builds the rest of the video around it.</p>
+</section>
+
+<section id="audio">
+  <div class="eyebrow">Deep dive · sound</div>
+  <h2>Voices and music</h2>
+  <h3>When people talk in the original</h3>
+  <p>If the reel has a voice ("Three, two, one… let's see how it turns out!"), our hook says the same words on the same seconds. This step is never skipped:</p>
+  <ol class="flow">
+    <li><div><b>Who says what.</b>Higgsfield's video analysis listens to the reel and writes down who speaks (man or woman, which tone) and the exact words.</div></li>
+    <li><div><b>When each word falls.</b>Claude separates the voice from their music and measures where every word starts, for example "three" at 0.18 s, "two" at 0.89 s, "one" at 1.42 s. Our hook moves the lips on those same seconds, so these are the seconds for our voice. If there is no voice at all, only a song, our hook gets no voice either: just our music from the start, with the big moment of the song on the reveal.</div></li>
+    <li><div><b>The words go into the clip too.</b>The words and their seconds also go into the video generation, so the lips and movements already fit the line.</div></li>
+    <li><div><b>The sound is made for OUR video.</b>The whole line of the original is written down word for word (not only "3, 2, 1" but also "let's see how it looks like"). Then Claude watches our hook frame by frame and lists every sound it needs: who speaks and what, the swoosh when the cloth is pulled, the soft thud when the robe drops, the whoosh of the blanket, a laugh, the sound of the room. The video tool then makes the sound on our own hook (it sees our picture), with no music. Claude moves each part of the voice onto the exact second the lips move and keeps every word whole. Their music and anything from their product that we don't have never end up in your video.</div></li>
+    <li><div><b>Audited every time.</b>After every hook and every finished video: every word is checked against the original line (nothing missing), every word's second against the lips (within 0.05 s), every sound effect against its action, and the sound is checked for music. If anything is off, it is fixed and checked again.</div></li>
+  </ol>
+  <h3>Music</h3>
+  <ul>
+    <li>Christmas songs for both robes (Snoopy: All I Want for Christmas Is You, It's Beginning to Look a Lot Like Christmas, Last Christmas; Princess: Let It Go and a trending sound), a different one each video. The beat drop is placed exactly on the cut from the hook to the robe part.</li>
+    <li>Want a different song? Drag the MP3 into the chat and say "use this song". Claude finds the best part and places it.</li>
+    <li><b>Quiet music under the hook, louder on the drop.</b> During the hook the music plays softly and the voice stays clearly on top. When the hook ends and the robe part begins, the music goes a bit louder, right on the song's drop, to the end.</li>
+    <li>Only exception: when the original has no voice at all, just a song, our music plays from the first second and its drop lands on the reveal.</li>
+  </ul>
+</section>
+
+<section id="people">
+  <div class="eyebrow">Deep dive · faces and places</div>
+  <h2>People and rooms</h2>
+  <p>Every video uses a new person and a new room, so your account never shows the same girl twice in a row.</p>
+  <h3>Where they come from</h3>
+  <ul>
+    <li>The kit comes with <b>34 women and 55 rooms</b>, all real phone photos (never AI), most of them Full HD or sharper.</li>
+    <li><b>Women:</b> real photos of real women, in any setting (a selfie in the car, at home, in a café): one woman, face clearly visible, eyes open, natural skin.</li>
+    <li><b>Rooms:</b> real American homes, like the rooms of the best-selling robe brands: modern apartments with an open kitchen, wood floor, a soft rug and neutral colours, or family living rooms with a sofa. A Christmas tree is nice but not needed.</li>
+    <li><b>New rooms come from Alex.</b> Alex sends you zips of rooms he picked: drag the zip into the chat and say "add these rooms". When fewer than 5 rooms are left, Claude tells you to ask Alex for the next zip.</li>
+    <li>When fewer than 5 women are left, Claude <b>searches Pinterest by itself</b> and keeps only real photos that pass the same checks. Anything that looks AI-made (too perfect, glowing, staged) is thrown out.</li>
+  </ul>
+  <h3>How the room is used</h3>
+  <ul>
+    <li><b>Room check:</b> sofa → the cozy shot happens on the sofa; only a bed → on the bed; neither → the room is skipped.</li>
+    <li><b>Always in the foreground:</b> the person is never behind a table, a plant or a chair. If the room photo has a table in the middle, Claude first makes a version of the room without it.</li>
+    <li><b>One place per video:</b> the same room for the hook (when it's at home), the robe, the connector, the remote and the cozy ending.</li>
+    <li><b>Outfit under the robe:</b> a different one each video (Christmas pajamas, a cozy set, a college sweatshirt), always long pants.</li>
+  </ul>
+</section>
+
+<section id="product">
+  <div class="eyebrow">Deep dive · showing the robe</div>
+  <h2>The product part</h2>
+  <ul>
+    <li><b>B-roll:</b> made from our tested movement clips, rebuilt with the new person, the new room and the robe copied exactly from its photos. The robe is never "described"; it is always reproduced from the real product pictures. For Snoopy the instructions that worked on every video are locked word for word; nothing is ever added to them.</li>
+    <li><b>Save credits:</b> after every video Claude offers 2 more hooks on the same B-roll (and a new cozy ending if you want). Those videos only need a new hook, so they cost about half.</li>
+    <li><b>Foot pockets:</b> she steps in one foot at a time; once the feet are in, they stay in, and in the lying and sitting shots the robe covers her legs completely.</li>
+    <li><b>Every shot counts:</b> no shot is ever dropped to hide a problem. A bad shot is redone.</li>
+    <li><b>Connector and remote:</b> ready-made 4K close-ups next to the Christmas tree, used in rotation. They are never generated, so they cost nothing.</li>
+    <li><b>Box:</b> for hooks with a box, each robe has its own display box (Snoopy: the camel HEATPUP box). Images and packaging are made with GPT Image 2.5, which spells the brand correctly.</li>
+    <li><b>Cozy ending:</b> the classic one from the B-roll, or a new 5-second shot of whatever you ask for: reading on the bed, hot cocoa on the sofa, wrapping gifts by the tree, a movie under the hood.</li>
+  </ul>
+</section>
+
+<section id="checks">
+  <div class="eyebrow">Quality</div>
+  <h2>How mistakes are caught</h2>
+  <p>AI video sometimes makes mistakes: a hand with six fingers, a robe that melts, a person who disappears. Robe Studio looks for them before you ever see the video.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Check</th><th>What it catches</th></tr>
+    <tr><td>Every photo, looked at</td><td>Wrong face, wrong robe, extra fingers, text where there shouldn't be any</td></tr>
+    <tr><td>Hook vs original</td><td>Movement too fast or too slow, actions at the wrong second, a different length</td></tr>
+    <tr><td>Object list</td><td>An object with the wrong job: their decoration turned into our robe, a box without our brand, something from their product left in, our robe looking like a cape</td></tr>
+    <tr><td>Sound audit (every video)</td><td>Missing words, words at the wrong time, sound effects that don't match the action, music under the hook</td></tr>
+    <tr><td>B-roll shot count</td><td>A missing or invented shot</td></tr>
+    <tr><td>Glitch detector</td><td>Sudden jumps inside a shot: melting, a photo flashing in, a body part popping</td></tr>
+    <tr><td>Shot-by-shot look</td><td>Empty robe, missing head, second robe, wrong pockets, blur patches</td></tr>
+    <tr><td>Safe cuts</td><td>Cuts are placed away from the spots where AI glitches hide</td></tr>
+    <tr><td>Final video</td><td>No text burned in (you add it in CapCut); black frames, no extra frame before the robe part, music quiet under the hook and louder on the drop, order of the parts</td></tr>
+  </table></div>
+  <p>Anything that fails is redone with the problem written into the instructions, up to 3 times. If something still isn't perfect, Claude tells you exactly what and why.</p>
+</section>
+
+<section id="variety">
+  <div class="eyebrow">Your account stays fresh</div>
+  <h2>Staying fresh</h2>
+  <p>Robe Studio remembers what each video used: hook, person, room, outfit, music, on-screen text and cozy ending. The next video is always different from the last three, so followers never feel they're watching the same thing again. Before each video Claude also suggests a cozy ending you haven't used lately.</p>
+</section>
+
+<section id="limits">
+  <div class="eyebrow">Honest limits</div>
+  <h2>How far it can go</h2>
+  <div class="can">
+    <div class="yes"><h3>Works great</h3><ul>
+      <li>Reels where one or two people do something with an object: reveals, countdowns, unboxings, try-ons, store displays, reactions.</li>
+      <li>Hooks with spoken lines, matched on the second.</li>
+      <li>Your own ideas: any scene you can describe in a sentence or two.</li>
+      <li>Many videos a day: each takes about 20 minutes.</li>
+    </ul></div>
+    <div class="hard"><h3>Harder</h3><ul>
+      <li>Crowds or choreography with many people moving at once.</li>
+      <li>Very fast cuts every half second.</li>
+      <li>Tiny details close up, like text on a phone screen.</li>
+      <li>Claude can't post for you or promise a video goes viral. The ideas you pick make the difference.</li>
+    </ul></div>
+  </div>
+  <p>New robes, new formats and improvements arrive through Alex's updates, about once a week.</p>
+</section>
+
+<section id="you">
+  <div class="eyebrow">Where you make the difference</div>
+  <h2>Your part</h2>
+  <p>The technical work is handled. Your energy goes into ideas:</p>
+  <ul>
+    <li><b>Find reels that already work:</b> short (10–20 s), lots of views, a strong first 3 seconds.</li>
+    <li><b>Invent your own hooks:</b> try one of your own for every two or three copied reels.</li>
+    <li><b>Add the suggested text in CapCut</b> before posting (top of the screen, the whole video).</li>
+    <li><b>Make 2 more hooks on each B-roll:</b> when Claude offers, send 2 more reel links. Cheaper and faster.</li>
+    <li><b>Change the cozy ending often.</b></li>
+    <li><b>Post consistently,</b> and notice which hooks get the most views. Do more of those.</li>
+  </ul>
+</section>
+
+<section id="help">
+  <div class="eyebrow">Help</div>
+  <h2>If something goes wrong</h2>
+  <ul>
+    <li><b>Claude says Higgsfield isn't connected:</b> open <code>claude.ai/customize/connectors</code>, connect Higgsfield again, start a new chat.</li>
+    <li><b>Claude says a download was blocked:</b> check the Network access step in the setup guide, then start a new chat.</li>
+    <li><b>Credits ran out:</b> top up on higgsfield.ai.</li>
+    <li><b>Anything else:</b> ask <q>what went wrong?</q> and Claude explains and fixes it. Still stuck? Write to Alex.</li>
+  </ul>
+  <footer>Robe Studio · guide updated 28 October 2026</footer>
+</section>
+</main>
+</div>

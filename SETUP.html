@@ -1,0 +1,311 @@
+<title>Robe Studio Setup</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column, a checklist of five steps, each with the exact buttons to click */
+:root{
+  --bg:#f6f5fb; --surface:#ffffff; --ink:#1b1f3b; --muted:#5d6181; --line:#dcdcec;
+  --royal:#2a3a9e; --belt:#c8283c; --gold:#e9b50f; --chip:#eceaf6; --ok:#1f7a4d;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11132a; --surface:#1a1d3a; --ink:#ecebf7; --muted:#a4a7c6; --line:#2e3260;
+  --royal:#8fa0ff; --belt:#ff6b7c; --gold:#f5c93a; --chip:#262a52; --ok:#5fd39a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11132a; --surface:#1a1d3a; --ink:#ecebf7; --muted:#a4a7c6; --line:#2e3260;
+  --royal:#8fa0ff; --belt:#ff6b7c; --gold:#f5c93a; --chip:#262a52; --ok:#5fd39a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:720px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--belt)}
+header{padding-block:44px 24px}
+header h1{font-size:clamp(2rem,6.5vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+header p{color:var(--muted);font-size:1.1rem;max-width:60ch;margin:.7rem 0 0}
+.need{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.need span{font:500 .82rem var(--mono);background:var(--chip);padding:5px 10px;border-radius:99px}
+.progress{margin:22px 0 6px;font:500 .85rem var(--mono);color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+ol.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:36px 1fr;gap:4px 14px}
+.step.done{border-color:var(--ok)}
+.n{font:800 1.5rem var(--display);color:var(--royal);line-height:1.2}
+.step.done .n{color:var(--ok)}
+.step h2{font-size:1.15rem;font-weight:700;align-self:center}
+.step .c{grid-column:2;min-width:0}
+.step p{margin:.35rem 0}
+.clicks{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:.5rem 0}
+.btn{font:600 .85rem var(--body);background:var(--royal);color:#fff;padding:4px 10px;border-radius:6px;white-space:nowrap}
+.arrow{color:var(--muted)}
+.url{font:500 .9rem var(--mono);background:var(--chip);padding:3px 8px;border-radius:5px;overflow-wrap:anywhere}
+.why{color:var(--muted);font-size:.92rem}
+.check{display:flex;align-items:center;gap:8px;margin-top:.6rem;font-weight:600;cursor:pointer;width:fit-content}
+.check input{width:20px;height:20px;accent-color:var(--ok)}
+.say{background:var(--chip);border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;font-style:italic;margin:.5rem 0}
+section.daily{margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
+section.daily h2{font-size:1.6rem;margin:.3rem 0 .6rem}
+.examples{display:grid;gap:8px}
+.promise{background:var(--surface);border:2px solid var(--ok);border-radius:12px;padding:16px 18px;margin-top:6px}
+.promise h2{font-size:1.3rem;color:var(--ok);margin-bottom:.3rem}
+.promise p{margin:0}
+.words{margin:16px 0 4px;color:var(--ink)}
+.words p{margin:.3rem 0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px;margin-top:16px}
+.roles>div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.roles h2{font-size:1.1rem;color:var(--royal);margin-bottom:.3rem}
+.roles ul{margin:0;padding-left:1.1rem}
+.roles li{margin:.3rem 0}
+.only{background:var(--chip);border-radius:8px;padding:8px 12px;display:inline-block;color:var(--ink)!important;font-size:1rem!important}
+.opts{display:grid;gap:10px;margin:.6rem 0}
+.opt{border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.opt h3{font-size:1rem}
+.tag{font:500 .7rem var(--mono);background:var(--gold);color:#1b1f3b;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.domains{font:500 .8rem/1.5 var(--mono);background:var(--chip);border-radius:8px;padding:10px 12px;margin:.4rem 0;max-height:220px;overflow:auto;white-space:pre}
+@media print{.domains{max-height:none;overflow:visible}.copy{display:none}}
+.copy{font:600 .85rem var(--body);background:var(--royal);color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.shot{margin:.8rem 0;min-width:0}
+.frame{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);max-width:520px}
+.bar{display:flex;align-items:center;gap:5px;padding:7px 10px;background:var(--chip);border-bottom:1px solid var(--line)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.bar span{margin-left:8px;font:500 .75rem var(--mono);color:var(--muted);background:var(--surface);border-radius:5px;padding:2px 8px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pg{padding:12px 14px;display:grid;gap:8px;font-size:.88rem}
+.row{display:flex;gap:8px;align-items:center}.between{justify-content:space-between}.end{justify-content:flex-end}
+.logo{font-family:var(--display)}
+.menu{display:grid;gap:2px;justify-self:end;border:1px solid var(--line);border-radius:8px;padding:6px;background:var(--surface);font-size:.85rem}
+.menu span{padding:3px 8px;border-radius:5px}
+.lbl{font-weight:600}.lbl.small{font-weight:500;color:var(--muted);font-size:.8rem}
+.m-input{border:1px solid var(--line);border-radius:6px;padding:5px 8px;background:var(--surface);font-family:var(--mono)}
+.m-radio{display:flex;align-items:center;gap:8px;padding:2px 4px;border-radius:6px}
+.m-radio i{width:12px;height:12px;border-radius:50%;border:2px solid var(--muted)}
+.m-radio.on i{border-color:var(--royal);background:radial-gradient(var(--royal) 45%,transparent 50%)}
+.m-btn{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--surface);font-weight:600}
+.m-btn.green{background:#1f883d;color:#fff;border-color:#1f883d}
+.m-link{color:#0969da;text-decoration:underline}
+.m-drop{border:2px dashed var(--muted);border-radius:8px;padding:16px;text-align:center;color:var(--muted)}
+.m-card{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.m-card.dim{opacity:.5}
+.m-chat{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.m-chat .ph{flex:1;color:var(--muted)}
+.m-env{font-size:.8rem;border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+.m-send{width:26px;height:26px;border-radius:50%;background:var(--royal);color:#fff;display:grid;place-items:center;font-weight:700}
+.m-msg{justify-self:end;background:var(--chip);border-radius:10px;padding:6px 10px}
+.m-panel{border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:6px;background:var(--surface)}
+.hl{position:relative;outline:3px solid var(--belt);outline-offset:2px;border-radius:6px}
+.hl::after{content:attr(data-n);position:absolute;top:-12px;right:-12px;width:20px;height:20px;border-radius:50%;background:var(--belt);color:#fff;font:700 .7rem/20px var(--body);text-align:center}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:4px}
+.note{font-size:.85rem;color:var(--muted)}
+.trouble{margin-top:28px}
+.trouble h3{font-size:1.05rem;margin-bottom:.4rem}
+.trouble ul{padding-left:1.1rem;margin:0}
+.trouble li{margin:.35rem 0}
+footer{margin-top:36px;font:500 .8rem var(--mono);color:var(--muted)}
+@media (max-width:480px){.step{grid-template-columns:1fr}.step .c{grid-column:1}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Robe Studio · setup</div>
+  <h1>Ready in 5 minutes, all in your browser.</h1>
+  <p class="only"><b>This setup is only for Claude Code on the web</b> (claude.ai/code). Nothing gets installed on your computer.</p>
+  <p>Never done anything like this before? Perfect, this is written for you. You click through five steps once. After that you only chat with Claude, like texting a friend.</p>
+  <div class="need"><span>Claude Pro or Max</span><span>Higgsfield account</span><span>free GitHub account</span></div>
+</header>
+
+<div class="promise">
+  <h2>You don't edit anything. Ever.</h2>
+  <p>No video editing, no files, no code, no settings to change later. You send a reel or an idea, Claude makes the whole video, checks it, and hands you the finished MP4. If you want something different, you just tell Claude in a normal sentence.</p>
+</div>
+<div class="roles">
+  <div>
+    <h2>What Alex does</h2>
+    <ul>
+      <li>Prepares the whole Robe Studio kit: the robes, the rules, the clips, everything.</li>
+      <li>Sends you <b>this page</b> and a folder called <b>robe-studio-upload</b> with 5 files in it (the whole kit).</li>
+      <li>About once a week sends you a small <b>update file</b> with improvements.</li>
+      <li>Is there if something doesn't work.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>What you do</h2>
+    <ul>
+      <li>Make 3 free/paid accounts if you don't have them: Claude (Pro), Higgsfield, GitHub.</li>
+      <li>Click through the 5 steps below, once.</li>
+      <li>After that: send Claude reels and ideas, and post the videos.</li>
+    </ul>
+  </div>
+</div>
+<div class="words">
+  <p><b>Two words you'll see:</b></p>
+  <p><b>GitHub</b> is a free website that keeps your own online folder. In it lives the Robe Studio kit and your finished videos. You never open the files yourself.</p>
+  <p><b>Claude Code</b> is a chat with Claude at claude.ai/code that can work inside that folder. That's where you talk to Claude.</p>
+</div>
+
+<p class="note">The pictures below are simplified drawings of the real screens: the red numbers show where to click, in order. Your screen may look a little different, but the button names are the same.</p>
+<div class="progress" id="ptext">0 of 5 done</div>
+<div class="bar"><i id="pbar"></i></div>
+
+<ol class="steps">
+  <li class="step" data-step>
+    <span class="n">1</span><h2>Put the kit in your own GitHub folder</h2>
+    <div class="c">
+      <p>First download the <b>robe-studio-upload</b> folder Alex sent you to your computer. Inside are 5 files: <span class="url">CLAUDE.md</span> and 4 pieces called <span class="url">robe-studio.zip.part-aa</span> … <span class="url">-ad</span>. Don't open or unzip them.</p>
+      <p>No GitHub account yet? Go to <span class="url">github.com</span>, click <span class="btn">Sign up</span> and make a free account (email + password).</p>
+      <p>On GitHub, click the <b>+</b> at the top right:</p>
+      <div class="clicks"><span class="btn">+</span><span class="arrow">→</span><span class="btn">New repository</span></div>
+      <p>In <b>Repository name</b> write <span class="url">robe-studio</span>, choose <b>Private</b> (only you can see it), click <span class="btn">Create repository</span>.</p>
+      <p>On the next page click the blue link <b>uploading an existing file</b>. Open the <b>robe-studio-upload</b> folder on your computer, select all 5 files inside it (<b>Ctrl+A</b> on Windows, <b>Cmd+A</b> on Mac) and drag <b>the files</b> into the page, not the folder itself. Wait until all 5 are listed, then click <span class="btn">Commit changes</span>.</p>
+      <p class="why">That's your own online folder with the kit in it. You never need to open it. Claude unpacks it by itself the first time you say hi.</p>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com</span></div><div class="pg"><div class="row between"><b class="logo">your GitHub page</b><span class="m-btn hl" data-n="1">+</span></div>
+<div class="menu right"><span class="hl" data-n="2">New repository</span><span>Import repository</span><span>New gist</span></div></div></div><figcaption>Top right: click <b>+</b>, then <b>New repository</b>.</figcaption></figure>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/new</span></div><div class="pg"><div class="lbl">Repository name</div><div class="m-input hl" data-n="3">robe-studio</div>
+<div class="m-radio"><i></i> Public</div><div class="m-radio on hl" data-n="4"><i></i> Private</div>
+<div class="row end"><span class="m-btn green hl" data-n="5">Create repository</span></div></div></div><figcaption>Write <b>robe-studio</b>, tick <b>Private</b>, click <b>Create repository</b>.</figcaption></figure>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>github.com/you/robe-studio</span></div><div class="pg"><div class="hint">Quick setup — get started by <span class="m-link hl" data-n="6">uploading an existing file</span></div>
+<div class="m-drop hl" data-n="7">Drag the 5 files here<br><small>CLAUDE.md · robe-studio.zip.part-aa · -ab · -ac · -ad</small></div>
+<div class="row end"><span class="m-btn green hl" data-n="8">Commit changes</span></div></div></div><figcaption>Click the blue link, drop the 5 files, wait until all 5 are listed, click <b>Commit changes</b>.</figcaption></figure>
+      <label class="check"><input type="checkbox" id="s1"> Done</label>
+    </div>
+  </li>
+  <li class="step" data-step>
+    <span class="n">2</span><h2>Connect Higgsfield</h2>
+    <div class="c">
+      <p>Higgsfield is the website that makes the images and videos. Claude uses your account there.</p>
+      <p>Open <span class="url">claude.ai/customize/connectors</span> (log in to Claude if asked). Find <b>Higgsfield</b> in the list:</p>
+      <div class="clicks"><span class="btn">Higgsfield</span><span class="arrow">→</span><span class="btn">Connect</span><span class="arrow">→</span><span>log in with your Higgsfield account</span><span class="arrow">→</span><span class="btn">Allow</span></div>
+      <p class="why">When it says "Connected", this step is done.</p>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.ai/customize/connectors</span></div><div class="pg"><div class="lbl">Connectors</div>
+<div class="m-card"><b>Higgsfield</b><span class="m-btn hl" data-n="1">Connect</span></div>
+<div class="m-card dim"><b>Other connectors…</b><span class="m-btn">Connect</span></div></div></div><figcaption>Find <b>Higgsfield</b>, click <b>Connect</b>, log in, click <b>Allow</b>.</figcaption></figure>
+      <label class="check"><input type="checkbox" id="s2"> Done</label>
+    </div>
+  </li>
+  <li class="step" data-step>
+    <span class="n">3</span><h2>Open Claude Code</h2>
+    <div class="c">
+      <p>Go to <span class="url">claude.ai/code</span>.</p>
+      <p>The first time it asks to connect GitHub. Click <span class="btn">Connect GitHub</span>, log in, and when GitHub asks which folders Claude may use, choose <b>robe-studio</b> and click <span class="btn">Install</span> / <span class="btn">Save</span>.</p>
+      <p>Back on claude.ai/code, choose <b>robe-studio</b> from the list. A chat box opens.</p>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.ai/code</span></div><div class="pg"><div class="lbl">Choose a repository</div>
+<div class="m-card hl" data-n="1"><b>robe-studio</b><small>private</small></div>
+<div class="m-card dim"><b>other-folder</b></div></div></div><figcaption>Pick <b>robe-studio</b>. A chat box opens.</figcaption></figure>
+      <label class="check"><input type="checkbox" id="s3"> Done</label>
+    </div>
+  </li>
+  <li class="step" data-step>
+    <span class="n">4</span><h2>Let it reach Instagram and TikTok</h2>
+    <div class="c">
+      <p>Next to the chat box there's a small cloud icon with a name (usually "Default"). Click it, then the little pencil / <b>Edit</b>.</p>
+      <p>Find <b>Network access</b>. This decides which websites Claude may open. Pick <b>one</b> of the two options, whichever you prefer:</p>
+      <div class="opts">
+        <div class="opt">
+          <h3>Option A · Full <span class="tag">easiest</span></h3>
+          <div class="clicks"><span class="btn">Network access</span><span class="arrow">→</span><span class="btn">Full</span><span class="arrow">→</span><span class="btn">Save</span></div>
+          <p class="why">Claude can open any website. One click, nothing else to do.</p>
+        </div>
+        <div class="opt">
+          <h3>Option B · Only the sites it needs <span class="tag">stricter</span></h3>
+          <div class="clicks"><span class="btn">Network access</span><span class="arrow">→</span><span class="btn">Custom</span> <span>(or <b>Limited</b>)</span></div>
+          <p>Leave <b>Allow package managers</b> ticked. In the box <b>Allowed domains</b> paste this whole list, then <span class="btn">Save</span>:</p>
+          <pre class="domains" id="domains">*.higgsfield.ai
+*.cloudfront.net
+*.instagram.com
+*.cdninstagram.com
+*.fbcdn.net
+*.facebook.com
+*.tiktok.com
+*.tiktokcdn.com
+*.tiktokv.com
+*.pinterest.com
+*.pinimg.com
+*.youtube.com
+*.googlevideo.com
+*.ytimg.com
+huggingface.co
+*.huggingface.co
+*.hf.co</pre>
+          <button type="button" class="copy" id="copy-domains">Copy the list</button>
+          <p class="why">Claude can then open only Higgsfield, Instagram, TikTok, Facebook, Pinterest, YouTube and the speech-to-text site. If one day Claude says a site was blocked, it tells you which line to add.</p>
+        </div>
+      </div>
+      <p class="why">Either way, you do this once and never again.</p>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.ai/code</span></div><div class="pg"><div class="m-chat"><span class="m-env hl" data-n="1">☁ Default ▾</span><span class="ph">Ask Claude…</span></div>
+<div class="m-panel"><div class="lbl">Edit environment</div><div class="lbl small">Network access</div>
+<div class="m-radio on hl" data-n="2"><i></i> Full <small>(Option A)</small></div><div class="m-radio"><i></i> Custom <small>(Option B: paste the list)</small></div>
+<div class="row end"><span class="m-btn hl" data-n="3">Save</span></div></div></div></div><figcaption>Click the cloud name next to the chat box, then <b>Edit</b>, choose the network option, <b>Save</b>.</figcaption></figure>
+      <label class="check"><input type="checkbox" id="s4"> Done</label>
+    </div>
+  </li>
+  <li class="step" data-step>
+    <span class="n">5</span><h2>Say hi</h2>
+    <div class="c">
+      <p>Write in the chat:</p>
+      <div class="say">Hi, set me up</div>
+      <p class="why">Press Enter and wait a few minutes. Claude prepares everything by itself and writes back when it's ready. If it asks you something, just answer in normal words. If a window pops up asking to allow something, click <b>Allow</b> / <b>Yes</b>.</p>
+      <figure class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span>claude.ai/code</span></div><div class="pg"><div class="m-msg">Hi, set me up</div>
+<div class="m-chat"><span class="ph">Hi, set me up</span><span class="m-send hl" data-n="1">↑</span></div></div></div><figcaption>Type the message and press <b>Enter</b>. Claude answers and does the rest.</figcaption></figure>
+      <label class="check"><input type="checkbox" id="s5"> Done</label>
+    </div>
+  </li>
+</ol>
+
+<section class="daily">
+  <div class="eyebrow">About once a week</div>
+  <h2>Updates from Alex</h2>
+  <p>When Alex sends you a file like <span class="url">robe-studio-update-2026-11-02.zip</span>, open a chat in claude.ai/code, drag the file into the chat and write:</p>
+  <div class="say">Here is the new update from Alex</div>
+  <p>Claude installs it and tells you in two lines what's new. Your videos and history stay as they are.</p>
+</section>
+
+<section class="daily">
+  <div class="eyebrow">Every day after that</div>
+  <h2>Just talk to Claude</h2>
+  <p>No commands to learn. Write like you'd text a friend who edits videos for you:</p>
+  <div class="examples">
+    <div class="say">Make this one with the princess robe: https://www.instagram.com/reel/…</div>
+    <div class="say">I have my own idea: she opens the front door and her mom holds a giant gift box.</div>
+    <div class="say">The text is too big.</div>
+  </div>
+  <p><b>Want a specific song?</b> Download it as an MP3 and drag it into the chat (or click the paperclip and choose it), then say <i>"use this song"</i>. Claude finds the best part of it and puts it in the video perfectly, with the chorus on the big moment.</p>
+  <p>Claude asks you one question (which cozy ending you want), then makes the video, checks every frame and gives you the finished MP4 and a caption to copy. You don't cut, edit or fix anything. To save the video: click it in the chat and download it. (It's also kept in your GitHub folder, under <span class="url">output</span>.)</p>
+  <p><b>Your part is the ideas.</b> Copy reels that work, and every two or three videos try a hook of your own.</p>
+
+  <div class="trouble">
+    <h3>If something goes wrong</h3>
+    <ul>
+      <li><b>Claude says Higgsfield isn't connected:</b> redo step 2, then start a new chat.</li>
+      <li><b>Claude says a download was blocked:</b> check step 4 (with Option B, add the site Claude names to the list), then start a new chat.</li>
+      <li><b>Still stuck:</b> write to Alex.</li>
+      <li><b>Anything else:</b> ask <i>"what went wrong?"</i> and Claude explains and fixes it.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Robe Studio · 26 October 2026</footer>
+</div>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('.check input'));
+  function save(){try{localStorage.setItem('rs-setup',JSON.stringify(boxes.map(function(b){return b.checked;})));}catch(e){}}
+  function upd(){
+    var n=0;
+    boxes.forEach(function(b){var li=b.closest('[data-step]'); li.classList.toggle('done',b.checked); if(b.checked)n++;});
+    document.getElementById('ptext').textContent=n===5?'All done. Start talking to Claude.':n+' of 5 done';
+    document.getElementById('pbar').style.width=(n*20)+'%';
+  }
+  try{var s=JSON.parse(localStorage.getItem('rs-setup')||'[]'); boxes.forEach(function(b,i){b.checked=!!s[i];});}catch(e){}
+  var cb=document.getElementById('copy-domains');
+  if(cb)cb.addEventListener('click',function(){
+    var txt=document.getElementById('domains').textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('domains'));var s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selected: press Ctrl+C / Cmd+C';}
+    try{navigator.clipboard.writeText(txt).then(function(){cb.textContent='Copied';},sel);}catch(e){sel();}
+  });
+  boxes.forEach(function(b){b.addEventListener('change',function(){save();upd();});});
+  upd();
+})();
+</script>
