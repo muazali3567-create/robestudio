@@ -1,1 +1,16 @@
-{}
+{
+  "motion": "28b47a39-ae7e-4228-bc7e-e281f3d61952",
+  "motion2": "897ceeb8-8e4c-4640-9998-a02e7cedc956",
+  "snoopy_front_closed": "a8315fbc-fb90-4cce-bca2-7e8d7f7c873e",
+  "snoopy_front_open": "6997ed39-7323-4cc8-beec-08751ce069de",
+  "snoopy_back": "44cfbace-dc2c-4f9a-8528-5337ebb9e110",
+  "snoopy_hood": "a278ee78-f125-488d-9183-058bff549a88",
+  "snoopy_pouch": "41c60119-6f0d-4231-9420-014277b75df3",
+  "snoopy_detail": "fc12c958-4f08-46f3-93ea-2c7dad196fed",
+  "snoopy_box": "3f52f472-ce9b-4e9b-9281-8f1ab7e99089",
+  "snoopy_box_display": "c98beb8b-aeac-453d-84f6-ab4f8eef84d8",
+  "princess_front": "55f8f44a-80b3-48d0-baa3-e531432cfbef",
+  "princess_back": "864e4296-fa7a-4c19-acf2-af9fa7d520dc",
+  "princess_pouch_open": "a12eadb2-6607-4340-a100-3483ca773908",
+  "princess_pouch_feet": "24ba0ca8-0384-4324-a625-c4ab68c3cc5c"
+}
